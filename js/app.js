@@ -683,6 +683,8 @@
     ui.hint.classList.toggle("gone", show);
   }
 
+  const IDLE_MS = 5000;
+
   function newTest() {
     if (S.raf) cancelAnimationFrame(S.raf);
     S.raf = 0;
@@ -771,7 +773,7 @@
     if (S.started || !S.words.length) return;
     S.started = true;
     S.running = true;
-    S.startTime = performance.now();
+    S.startTime = S.lastInput = performance.now();
     S.lastSec = 0;
     S.lastKeys = 0;
     S.lastGood = 0;
@@ -798,6 +800,10 @@
     if (!S.running) return;
 
     const now = performance.now();
+    if (now - S.lastInput > IDLE_MS) {
+      newTest(); // sin actividad: se reinicia la prueba
+      return;
+    }
     S.elapsed = (now - S.startTime) / 1000;
 
     sampleTick();
@@ -1096,6 +1102,7 @@
   function onKeyDown(event) {
     if (event.ctrlKey || event.metaKey || event.altKey) return;
     const key = event.key;
+    S.lastInput = performance.now();
 
     if (!ui.history.hidden) {
       if (key === "Tab" || key === "Enter" || key === "Escape") {
