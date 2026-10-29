@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#323437" />
+  <title>typodesk — práctica de mecanografía</title>
+  <meta name="description" content="Practica mecanografía con las letras que tú elijas. Palabras en español, estadísticas en vivo y un diseño minimalista." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23323437'/%3E%3Cpath d='M30 28h40a8 8 0 0 1 8 8v28a8 8 0 0 1-8 8H30a8 8 0 0 1-8-8V36a8 8 0 0 1 8-8Z' fill='none' stroke='%23e2b714' stroke-width='7'/%3E%3Cpath d='M38 42h24M38 52h24M38 62h14' stroke='%23e2b714' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E" />
+  <link rel="preload" href="assets/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-theme="serika">
+  <div class="app" id="app">
+
+    <header class="topbar">
+      <button class="brand" id="brand" title="Reiniciar prueba (Tab)">
+        <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="6" width="20" height="12" rx="2.5" />
+          <path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M6 14h.01M18 14h.01M9.5 14h5" />
+        </svg>
+        <span class="brand-text">
+          <span class="brand-name">typodesk</span>
+          <span class="brand-sub">mecanografía</span>
+        </span>
+      </button>
+
+      <nav class="actions" aria-label="Ajustes rápidos">
+        <button class="icon-btn" id="btnTheme" title="Cambiar tema">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 3v18M12 3a9 9 0 0 1 0 18" />
+            <path d="M12 3a9 9 0 0 0 0 18Z" fill="currentColor" stroke="none" opacity=".65" />
+          </svg>
+        </button>
+        <button class="icon-btn" id="btnSound" title="Sonido de teclas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5 6 9H2v6h4l5 4V5Z" />
+            <path class="sound-on" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13" />
+            <path class="sound-off" d="m16 9 5 6M21 9l-5 6" />
+          </svg>
+        </button>
+        <button class="icon-btn" id="btnHistory" title="Historial y récords">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 20V4M4 20h16" />
+            <path d="m8 15 4-5 3 3 5-7" />
+          </svg>
+        </button>
+        <button class="icon-btn" id="btnLetters" title="Elegir letras (L)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="16" rx="2.5" />
+            <path d="M7 9h2M11 9h2M15 9h2M7 13h2M11 13h2M15 13h2M8 17h8" />
+          </svg>
+        </button>
+      </nav>
+    </header>
+
+    <div class="config" id="config">
+      <div class="cfg-group" id="moduleSeg">
+        <button class="cfg" data-module="speed" title="Mide tu velocidad (wpm) y precisión">velocidad</button>
+        <button class="cfg" data-module="practice" title="Practica tus letras flojas: mapa de fallos y palabras adaptadas">práctica</button>
+      </div>
+      <span class="sep"></span>
+      <button class="cfg" id="cfgPunct" title="Añadir mayúsculas y signos de puntuación">@ puntuación</button>
+      <button class="cfg" id="cfgAccents" title="Practicar tildes: el test pedirá á, é, í, ó, ú y ü">~ tildes</button>
+      <button class="cfg" id="cfgBlock" title="Bloquear errores: no avanzas hasta escribir la letra correcta">⊘ bloquear</button>
+      <span class="sep"></span>
+      <div class="cfg-group">
+        <button class="cfg" data-mode="time">tiempo</button>
+        <button class="cfg" data-mode="words">palabras</button>
+      </div>
+      <span class="sep"></span>
+      <div class="cfg-group" id="amountTime">
+        <button class="cfg" data-time="15">15</button>
+        <button class="cfg" data-time="30">30</button>
+        <button class="cfg" data-time="60">60</button>
+        <button class="cfg" data-time="120">120</button>
+      </div>
+      <div class="cfg-group" id="amountWords" hidden>
+        <button class="cfg" data-count="10">10</button>
+        <button class="cfg" data-count="25">25</button>
+        <button class="cfg" data-count="50">50</button>
+        <button class="cfg" data-count="100">100</button>
+      </div>
+      <span class="sep"></span>
+      <button class="cfg cfg-letters" id="cfgLetters" title="Elegir las letras que quieres practicar">
+        <span class="hash">#</span> letras <span class="badge" id="lettersBadge">27</span>
+      </button>
+    </div>
+
+    <section class="panel" id="panel" aria-label="Selección de letras">
+      <div class="panel-inner">
+        <div class="panel-head">
+          <div class="panel-title">
+            <h2>Letras a practicar</h2>
+            <p>Elige las teclas que quieres entrenar. Las palabras se generan solo con esas letras.</p>
+          </div>
+          <div class="seg" id="filterSeg" role="group" aria-label="Modo de filtro">
+            <button data-filter="subset" title="Palabras formadas únicamente por las letras elegidas">solo estas</button>
+            <button data-filter="all" title="Palabras que contienen todas las letras elegidas">contiene todas</button>
+            <button data-filter="any" title="Palabras que contienen al menos una de las letras elegidas">contiene alguna</button>
+          </div>
+        </div>
+
+        <div class="panel-body">
+          <div class="keyboard" id="keyboard" aria-label="Teclado"></div>
+
+          <div class="panel-side">
+            <div class="side-block">
+              <span class="side-label">atajos</span>
+              <div class="presets" id="presets">
+                <button data-preset="all">todas</button>
+                <button data-preset="none">ninguna</button>
+                <button data-preset="home">fila central</button>
+                <button data-preset="top">fila superior</button>
+                <button data-preset="bottom">fila inferior</button>
+                <button data-preset="left">mano izquierda</button>
+                <button data-preset="right">mano derecha</button>
+              </div>
+            </div>
+
+            <div class="side-block">
+              <span class="side-label">tipo de palabras</span>
+              <div class="seg small" id="typeSeg" role="group" aria-label="Tipo de palabras">
+                <button data-type="real">reales</button>
+                <button data-type="syllables">sílabas</button>
+              </div>
+            </div>
+
+            <label class="switch" id="vowelsSwitch">
+              <input type="checkbox" id="vowelsToggle" />
+              <span class="switch-track"><span class="switch-thumb"></span></span>
+              <span class="switch-text">
+                incluir vocales siempre
+                <small>mantiene las palabras naturales (a, e, i, o, u)</small>
+              </span>
+            </label>
+
+            <label class="switch" id="blockSwitch">
+              <input type="checkbox" id="blockToggle" />
+              <span class="switch-track"><span class="switch-thumb"></span></span>
+              <span class="switch-text">
+                bloquear errores
+                <small>si fallas una letra, no avanzas hasta escribirla bien</small>
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <div class="panel-foot">
+          <span class="pool-info" id="poolInfo">—</span>
+          <div class="panel-foot-actions">
+            <span class="panel-hint">también puedes presionar las teclas</span>
+            <button class="btn small-btn" id="btnClosePanel">listo</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="stage" id="stage">
+      <div class="typing" id="typing">
+        <div class="live" id="live">
+          <div class="live-left">
+            <span class="live-main" id="liveMain">30</span><span class="live-unit" id="liveUnit">s</span>
+          </div>
+          <div class="live-right" id="liveRight">
+            <span><b id="liveWpm">0</b> wpm</span>
+            <span><b id="liveAcc">100</b>% acc</span>
+          </div>
+        </div>
+
+        <div class="words-clip" id="wordsClip">
+          <div class="words" id="words"></div>
+        </div>
+
+        <div class="empty" id="empty" hidden>
+          <p class="empty-title">No hay palabras con esa combinación</p>
+          <p class="empty-text">Prueba con «contiene alguna», activa «incluir vocales» o elige otras letras.</p>
+          <button class="btn small-btn" id="btnEmptyFix">ajustar letras</button>
+        </div>
+
+        <div class="hint" id="hint">empieza a escribir para iniciar la prueba</div>
+
+        <div class="minikb-wrap">
+          <div class="minikb" id="minikb" aria-hidden="true"></div>
+          <div class="minikb-legend">
+            <span>menos fallos</span><i class="grad"></i><span>más fallos</span>
+            <button class="link-btn" id="btnFingers" title="Mostrar el dedo de cada tecla y la siguiente letra">dedos</button>
+            <button class="link-btn" id="btnResetStats" title="Borrar el historial de fallos">borrar</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-hints">
+        <span><kbd>tab</kbd> reiniciar</span>
+        <span><kbd>esc</kbd> cerrar</span>
+      </div>
+      <span class="footer-credit">hecho para practicar letra por letra</span>
+    </footer>
+  </div>
+
+  <div class="results" id="results" hidden>
+    <div class="results-inner">
+      <div class="res-head">
+        <span class="res-eyebrow" id="resEyebrow">prueba terminada</span>
+        <span class="res-record" id="resRecord" hidden></span>
+      </div>
+
+      <div class="res-grid">
+        <div class="res-metrics">
+          <div class="big-metric">
+            <span class="num" id="rWpm">0</span>
+            <span class="lab">wpm</span>
+          </div>
+          <div class="big-metric">
+            <span class="num" id="rAcc">0</span>
+            <span class="lab">precisión</span>
+          </div>
+        </div>
+        <div class="res-chart-wrap">
+          <canvas id="chart" aria-label="Gráfico de velocidad por segundo"></canvas>
+        </div>
+      </div>
+
+      <div class="res-stats" id="resStats"></div>
+      <div class="res-practice" id="resPractice" hidden></div>
+
+      <div class="res-actions">
+        <button class="btn primary" id="btnAgain">otra vez <kbd>tab</kbd></button>
+        <button class="btn" id="btnChangeLetters">cambiar letras</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="results" id="history" hidden>
+    <div class="results-inner">
+      <div class="res-head">
+        <span class="res-eyebrow">historial · últimas pruebas</span>
+        <button class="link-btn" id="btnClearHistory">borrar historial</button>
+      </div>
+      <div class="res-chart-wrap">
+        <canvas id="historyChart" aria-label="Velocidad por prueba"></canvas>
+      </div>
+      <div class="res-stats" id="historyStats"></div>
+      <div class="res-actions">
+        <button class="btn primary" id="btnCloseHistory">volver <kbd>esc</kbd></button>
+      </div>
+    </div>
+  </div>
+
+  <noscript>
+    <p style="text-align:center;padding:2rem">Esta aplicación necesita JavaScript para funcionar.</p>
+  </noscript>
+
+  <script src="js/words.js"></script>
+  <script src="js/rare.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
